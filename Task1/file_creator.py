@@ -20,9 +20,9 @@ def create_test_files(base_path: str, num_files: int, num_folders: int):
                 f.write('This is a test file.')
 
 def main():
-    base_path = 'test_source'
-    num_files = 10  # Number of files in each folder
-    num_folders = 5  # Number of folders to create
+    base_path = os.path.join(os.getcwd(), 'test_source')  # Поточна директорія
+    num_files = 10  # Кількість файлів у кожній папці
+    num_folders = 5  # Кількість папок для створення
 
     create_test_files(base_path, num_files, num_folders)
     print(f"Created {num_folders} folders with {num_files} files each in {base_path}")
