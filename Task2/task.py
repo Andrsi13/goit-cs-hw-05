@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from concurrent.futures import ThreadPoolExecutor
 from collections import defaultdict, Counter
 
+
 def get_text(url):
     try:
         response = requests.get(url)
@@ -13,11 +14,14 @@ def get_text(url):
         print(f"Error fetching the text: {e}")
         return None
 
+
 def remove_punctuation(text):
     return text.translate(str.maketrans("", "", string.punctuation))
 
+
 def map_function(word):
     return word, 1
+
 
 def shuffle_function(mapped_values):
     shuffled = defaultdict(list)
@@ -25,9 +29,11 @@ def shuffle_function(mapped_values):
         shuffled[key].append(value)
     return shuffled.items()
 
+
 def reduce_function(key_values):
     key, values = key_values
     return key, sum(values)
+
 
 def map_reduce(text):
     # Видалення знаків пунктуації
@@ -47,6 +53,7 @@ def map_reduce(text):
 
     return dict(reduced_values)
 
+
 def visualize_top_words(word_counts, top_n=10):
     # Сортування слів за частотою
     sorted_words = sorted(word_counts.items(), key=lambda x: x[1], reverse=True)
@@ -54,15 +61,16 @@ def visualize_top_words(word_counts, top_n=10):
     words, counts = zip(*top_words) if top_words else ([], [])
 
     plt.figure(figsize=(12, 8))
-    plt.barh(words, counts, color='skyblue')
-    plt.xlabel('Frequency')
-    plt.ylabel('Words')
-    plt.title('Top Words Frequency')
+    plt.barh(words, counts, color="skyblue")
+    plt.xlabel("Frequency")
+    plt.ylabel("Words")
+    plt.title("Top Words Frequency")
     plt.gca().invert_yaxis()  # Інвертувати вісь Y, щоб топ-слова були зверху
     plt.tight_layout()
     plt.show()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # Вхідний текст для обробки
     url = "https://gutenberg.net.au/ebooks01/0100021.txt"  # Замість цього вставте URL-адресу
     text = get_text(url)
